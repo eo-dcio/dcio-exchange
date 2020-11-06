@@ -1,0 +1,1623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2016 rel. 2 sp1 (x64) (http://www.altova.com) by Tom Kralidis (Environment Canada) -->
+<!-- Created by the GEOMS portal on the Aura Validation Data Center: http://avdc.gsfc.nasa.gov/GEOMS 2011-07-25 -->
+<xs:schema xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:eocdcio="http://earth.esa.int/eocdcio" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://earth.esa.int/eocdcio" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.8.0">
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.w3.org/1999/xlink.xsd"/>
+	<xs:element name="CorrelativeProduct" type="eocdcio:CorrelativeProductType" substitutionGroup="gml:Observation">
+		<xs:annotation>
+			<xs:documentation>eocdcio root element for Correlative Product description</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CorrelativeProductType" mixed="false">
+		<xs:annotation>
+			<xs:documentation>eocdcio Product description</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:ObservationType">
+				<xs:attribute name="version" type="xs:string" use="required" fixed="0.8.0">
+					<xs:annotation>
+						<xs:documentation>Reference to the schema version number used to validate the instance</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CorrelativeProductPropertyType">
+		<xs:sequence>
+			<xs:element ref="eocdcio:CorrelativeProduct" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<xs:attribute name="type" type="xs:QName"/>
+	<!-- CorrelativeProductMetaData -->
+	<xs:element name="CorrelativeProductMetaData" type="eocdcio:CorrelativeProductMetaDataType" substitutionGroup="gml:AbstractMetaData"/>
+	<xs:complexType name="CorrelativeProductMetaDataType" mixed="true">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractMetaDataType">
+				<xs:sequence>
+					<xs:element ref="eocdcio:fileIdentifier"/>
+					<xs:element ref="eocdcio:metaDataUpdateDate"/>
+					<xs:element ref="eocdcio:fileGenerationDate"/>
+					<xs:element ref="eocdcio:description" minOccurs="0"/>
+					<xs:element ref="eocdcio:temporalResolution" minOccurs="0"/>
+					<xs:element ref="eocdcio:spatialResolution" minOccurs="0"/>
+					<xs:element ref="eocdcio:discipline" minOccurs="0"/>
+					<xs:element ref="eocdcio:acquisitionType" minOccurs="0"/>
+					<xs:element ref="eocdcio:emissionWaveLength" minOccurs="0"/>
+					<xs:element ref="eocdcio:detectionWaveLength" minOccurs="0"/>
+					<xs:element ref="eocdcio:solarZenithAngle" minOccurs="0"/>
+					<xs:element ref="eocdcio:dataLevel" minOccurs="0"/>
+					<xs:element ref="eocdcio:dataVariable" maxOccurs="unbounded"/>
+					<xs:element ref="eocdcio:origin" minOccurs="0"/>
+					<xs:element ref="eocdcio:originator" minOccurs="0"/>
+					<xs:element ref="eocdcio:investigator" minOccurs="0"/>
+					<xs:element ref="eocdcio:submitter" minOccurs="0"/>
+					<xs:element ref="eocdcio:productType" minOccurs="0"/>
+					<xs:element ref="eocdcio:measurementStatus" minOccurs="0"/>
+					<xs:element ref="eocdcio:processing" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="fileIdentifier" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Unique identifier for the file (URN) starting with x-eocdcio, followed by the identifier of the originating datacentre, followed by Identifier for this file within the datacentre</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="metaDataUpdateDate">
+		<xs:annotation>
+			<xs:documentation>Date of last update of the metadata file (expressed as per ISO8601 -UTC Time zone)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:dateTime"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="fileGenerationDate">
+		<xs:annotation>
+			<xs:documentation>Date of generation of the current file (expressed as per ISO8601 -UTC Time zone)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:dateTime"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="description">
+		<xs:annotation>
+			<xs:documentation>Textual description of the data content of the product.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="temporalResolution" type="xs:duration">
+		<xs:annotation>
+			<xs:documentation>Temporal Resolution of the data product (GEOMS guidelines - first part of DATA_TYPE)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="spatialResolution" type="gml:MeasureType">
+		<xs:annotation>
+			<xs:documentation>Spatial Resolution of the data product</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="discipline">
+		<xs:annotation>
+			<xs:documentation>Discipline (codelist as per the GEOMS guidelines)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="ATMOSPHERIC.CHEMISTRY"/>
+				<xs:enumeration value="ATMOSPHERIC.DYNAMICS"/>
+				<xs:enumeration value="ATMOSPHERIC.PHYSICS"/>
+				<xs:enumeration value="LAND.SURFACE.GEOPHYSICS"/>
+				<xs:enumeration value="LUNAR.PHYSICS"/>
+				<xs:enumeration value="OCEANOGRAPHIC.BIOLOGY"/>
+				<xs:enumeration value="OCEANOGRAPHIC.CHEMISTRY"/>
+				<xs:enumeration value="OCEANOGRAPHIC.DYNAMICS"/>
+				<xs:enumeration value="OCEANOGRAPHIC.PHYSICS"/>
+				<xs:enumeration value="SOLAR.PHYSICS"/>
+				<xs:enumeration value="STELLAR.PHYSICS"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="acquisitionType">
+		<xs:annotation>
+			<xs:documentation>acquisitionType as per the GEOMS guidelines</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="INSITU"/>
+				<xs:enumeration value="NUMERICAL.SIMULATION"/>
+				<xs:enumeration value="REMOTE.SENSING"/>
+				<xs:enumeration value="SAMPLE"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="platform">
+		<xs:annotation>
+			<xs:documentation>Platform on which the instrument is mounted (codelist as per GEOMS guidelines)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="AIRCRAFT"/>
+				<xs:enumeration value="ASSIMILATION"/>
+				<xs:enumeration value="BALLOON"/>
+				<xs:enumeration value="BUOY"/>
+				<xs:enumeration value="GROUNDBASED"/>
+				<xs:enumeration value="MODEL"/>
+				<xs:enumeration value="MOORING"/>
+				<xs:enumeration value="PLATFORM"/>
+				<xs:enumeration value="ROCKET"/>
+				<xs:enumeration value="SATELLITE"/>
+				<xs:enumeration value="SHIP"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="emissionWaveLength" type="gml:MeasureType">
+		<xs:annotation>
+			<xs:documentation>The emission wavelenth.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="detectionWaveLength" type="gml:MeasureType">
+		<xs:annotation>
+			<xs:documentation>The detection wavelength.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="solarZenithAngle" type="gml:MeasureType">
+		<xs:annotation>
+			<xs:documentation>TBD</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="dataLevel">
+		<xs:annotation>
+			<xs:documentation>Specifies the data product level (code list as per the GEOMS Guidelines - second part of DATA_TYPE)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+				<xs:enumeration value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="originator" type="eocdcio:PersonIdentificationPropertyType">
+		<xs:annotation>
+			<xs:documentation>Name and Affiliation of the Originator</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="submitter" type="eocdcio:PersonIdentificationPropertyType">
+		<xs:annotation>
+			<xs:documentation>Name and Affiliation of the Submitter</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="investigator" type="eocdcio:PersonIdentificationPropertyType">
+		<xs:annotation>
+			<xs:documentation>Name and Affiliation of the Investigator</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="dataVariable">
+		<xs:annotation>
+			<xs:documentation>A basic description of the measurable described in the dataset, with the context in which the entity is described and an optional descriptor (code list as per the GEOMS Guidelines)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="ABSORPTION.COEFFICIENT"/>
+				<xs:enumeration value="AEROSOL.ABSORPTION.OPTICAL.DEPTH"/>
+				<xs:enumeration value="AEROSOL.ABSORPTION.OPTICAL.DEPTH.LEVEL"/>
+				<xs:enumeration value="AEROSOL.ASYMMETRY.FACTOR"/>
+				<xs:enumeration value="AEROSOL.BACKSCATTER.RATIO"/>
+				<xs:enumeration value="AEROSOL.COLUMN"/>
+				<xs:enumeration value="AEROSOL.DEPOLARIZATION.RATIO"/>
+				<xs:enumeration value="AEROSOL.EXTINCTION.COEFFICIENT"/>
+				<xs:enumeration value="AEROSOL.INDEX"/>
+				<xs:enumeration value="AEROSOL.LAYER.HEIGHT"/>
+				<xs:enumeration value="AEROSOL.OPTICAL.DEPTH"/>
+				<xs:enumeration value="AEROSOL.OPTICAL.DEPTH.LEVEL"/>
+				<xs:enumeration value="AEROSOL.OPTICAL.DEPTH.STRATOSPHERIC"/>
+				<xs:enumeration value="AEROSOL.OPTICAL.DEPTH.TROPOSPHERIC"/>
+				<xs:enumeration value="AEROSOL.SINGLE.SCATTERING.ALBEDO"/>
+				<xs:enumeration value="AEROSOL.SINGLE.SCATTERING.ALBEDO.LEVEL"/>
+				<xs:enumeration value="AEROSOL.TYPE"/>
+				<xs:enumeration value="AIR.MASS"/>
+				<xs:enumeration value="ALBEDO.SURFACE"/>
+				<xs:enumeration value="ALTITUDE"/>
+				<xs:enumeration value="ALTITUDE.BOUNDARIES"/>
+				<xs:enumeration value="ALTITUDE.GPH.BOUNDARIES"/>
+				<xs:enumeration value="ALTITUDE.GPH"/>
+				<xs:enumeration value="ALTITUDE.INSTRUMENT"/>
+				<xs:enumeration value="ANEMOMETER.HEIGHT"/>
+				<xs:enumeration value="ANGLE"/>
+				<xs:enumeration value="ANGLE.LUNAR"/>
+				<xs:enumeration value="ANGLE.SOLAR"/>
+				<xs:enumeration value="ANGLE.VIEW"/>
+				<xs:enumeration value="ATMOSPHERIC.TRANSMISSION"/>
+				<xs:enumeration value="AUXILIARY.PARAMETERS"/>
+				<xs:enumeration value="BACKSCATTERING.COEFFICIENT"/>
+				<xs:enumeration value="BAROMETRIC.PRESSURE"/>
+				<xs:enumeration value="BPA"/>
+				<xs:enumeration value="BrO.COLUMN"/>
+				<xs:enumeration value="BrO.COLUMN.PARTIAL"/>
+				<xs:enumeration value="BrO.COLUMN.SLANT"/>
+				<xs:enumeration value="BrO.COLUMN.SLANT.DIFFERENTIAL"/>
+				<xs:enumeration value="BrO.COLUMN.SLANT.TROPOSPHERIC"/>
+				<xs:enumeration value="BrO.COLUMN.STRATOSPHERIC"/>
+				<xs:enumeration value="BrO.MIXING.RATIO"/>
+				<xs:enumeration value="C2H6.COLUMN"/>
+				<xs:enumeration value="C2H6.COLUMN.PARTIAL"/>
+				<xs:enumeration value="C2H6.MIXING.RATIO"/>
+				<xs:enumeration value="CFC11.MIXING.RATIO"/>
+				<xs:enumeration value="CFC12.MIXING.RATIO"/>
+				<xs:enumeration value="CH4.COLUMN"/>
+				<xs:enumeration value="CH4.COLUMN.PARTIAL"/>
+				<xs:enumeration value="CH4.MIXING.RATIO"/>
+				<xs:enumeration value="CH4.NUMBER.DENSITY"/>
+				<xs:enumeration value="CHL.1.CONCENTRATION"/>
+				<xs:enumeration value="CHL.1.INDEX"/>
+				<xs:enumeration value="CHL.2.INDEX"/>
+				<xs:enumeration value="CHL.A.CONCENTRATION"/>
+				<xs:enumeration value="CHOCHO.COLUMN"/>
+				<xs:enumeration value="CHOCHO.COLUMN.PARTIAL"/>
+				<xs:enumeration value="CHOCHO.COLUMN.TROPOSPHERIC"/>
+				<xs:enumeration value="CHOCHO.MIXING.RATIO"/>
+				<xs:enumeration value="ClO.MIXING.RATIO"/>
+				<xs:enumeration value="ClONO2.COLUMN"/>
+				<xs:enumeration value="ClONO2.COLUMN.PARTIAL"/>
+				<xs:enumeration value="ClONO2.MIXING.RATIO"/>
+				<xs:enumeration value="CLOUD.BOTTOM.HEIGHT"/>
+				<xs:enumeration value="CLOUD.FRACTION"/>
+				<xs:enumeration value="CLOUD.LAYER.THICKNESS"/>
+				<xs:enumeration value="CLOUD.TOP.HEIGHT"/>
+				<xs:enumeration value="CLOUD.TOP.PRESSURE"/>
+				<xs:enumeration value="CO2.COLUMN"/>
+				<xs:enumeration value="CO2.MIXING.RATIO"/>
+				<xs:enumeration value="CO2.NUMBER.DENSITY"/>
+				<xs:enumeration value="CO.COLUMN"/>
+				<xs:enumeration value="CO.COLUMN.PARTIAL"/>
+				<xs:enumeration value="COLOUR.INDEX"/>
+				<xs:enumeration value="CO.MIXING.RATIO"/>
+				<xs:enumeration value="CO.NUMBER.DENSITY"/>
+				<xs:enumeration value="DATETIME"/>
+				<xs:enumeration value="DATETIME.START"/>
+				<xs:enumeration value="DATETIME.STOP"/>
+				<xs:enumeration value="DAY.OF.YEAR"/>
+				<xs:enumeration value="DENSITY.DRY"/>
+				<xs:enumeration value="DENSITY"/>
+				<xs:enumeration value="DEPTH"/>
+				<xs:enumeration value="DEPTH.KD"/>
+				<xs:enumeration value="DEPTH.SEA.FLOOR"/>
+				<xs:enumeration value="DEPTH.SECCHI"/>
+				<xs:enumeration value="DEW.POINT.TEMPERATURE"/>
+				<xs:enumeration value="DISCOLOUR.CODE"/>
+				<xs:enumeration value="DISTANCE.SHORE"/>
+				<xs:enumeration value="F12.COLUMN"/>
+				<xs:enumeration value="F22.COLUMN"/>
+				<xs:enumeration value="FLAG.ALGORITHM"/>
+				<xs:enumeration value="FLAG.ALGORITHM.LEVEL"/>
+				<xs:enumeration value="FLAG.MEASUREMENT.QUALITY"/>
+				<xs:enumeration value="FLAG.PROCESSING.QUALITY"/>
+				<xs:enumeration value="FLAG.TARGET"/>
+				<xs:enumeration value="FREQUENCY.BIN"/>
+				<xs:enumeration value="FREQUENCY.SIGNAL"/>
+				<xs:enumeration value="H2CO.COLUMN"/>
+				<xs:enumeration value="H2CO.COLUMN.PARTIAL"/>
+				<xs:enumeration value="H2CO.COLUMN.TROPOSPHERIC"/>
+				<xs:enumeration value="H2CO.MIXING.RATIO"/>
+				<xs:enumeration value="H2.MIXING.RATIO"/>
+				<xs:enumeration value="H2O.COLUMN"/>
+				<xs:enumeration value="H2O.COLUMN.PARTIAL"/>
+				<xs:enumeration value="H2O.COLUMN.STRATOSPHERIC"/>
+				<xs:enumeration value="H2O.COLUMN.TROPOSPHERIC"/>
+				<xs:enumeration value="H2O.LIQUID.COLUMN"/>
+				<xs:enumeration value="H2O.MIXING.RATIO"/>
+				<xs:enumeration value="H2O.NUMBER.DENSITY"/>
+				<xs:enumeration value="HCFC22.COLUMN"/>
+				<xs:enumeration value="HCFC22.COLUMN.PARTIAL"/>
+				<xs:enumeration value="HCFC22.MIXING.RATIO"/>
+				<xs:enumeration value="HCl.COLUMN"/>
+				<xs:enumeration value="HCl.COLUMN.PARTIAL"/>
+				<xs:enumeration value="HCl.MIXING.RATIO"/>
+				<xs:enumeration value="HCl.NUMBER.DENSITY"/>
+				<xs:enumeration value="HCN.COLUMN"/>
+				<xs:enumeration value="HCN.COLUMN.PARTIAL"/>
+				<xs:enumeration value="HCN.MIXING.RATIO"/>
+				<xs:enumeration value="HCOOH.COLUMN"/>
+				<xs:enumeration value="HEIGHT.TERRAIN"/>
+				<xs:enumeration value="HF.COLUMN"/>
+				<xs:enumeration value="HF.COLUMN.PARTIAL"/>
+				<xs:enumeration value="HF.MIXING.RATIO"/>
+				<xs:enumeration value="HNO3.COLUMN"/>
+				<xs:enumeration value="HNO3.COLUMN.PARTIAL"/>
+				<xs:enumeration value="HNO3.MIXING.RATIO"/>
+				<xs:enumeration value="HNO3.NUMBER.DENSITY"/>
+				<xs:enumeration value="HONO.COLUMN"/>
+				<xs:enumeration value="HONO.COLUMN.PARTIAL"/>
+				<xs:enumeration value="HONO.COLUMN.TROPOSPHERIC"/>
+				<xs:enumeration value="HONO.MIXING.RATIO"/>
+				<xs:enumeration value="HUMIDITY.RELATIVE"/>
+				<xs:enumeration value="HUMIDITY.SPECIFIC"/>
+				<xs:enumeration value="INTEGRATION.TIME"/>
+				<xs:enumeration value="INTERNAL.BOX.TEMPERATURE"/>
+				<xs:enumeration value="INTERNAL.INSTRUMENT.TEMPERATURE"/>
+				<xs:enumeration value="IO.COLUMN"/>
+				<xs:enumeration value="IO.COLUMN.PARTIAL"/>
+				<xs:enumeration value="IO.COLUMN.STRATOSPHERIC"/>
+				<xs:enumeration value="IO.COLUMN.TROPOSPHERIC"/>
+				<xs:enumeration value="IO.MIXING.RATIO"/>
+				<xs:enumeration value="IRRADIANCE.DOWNWELLED"/>
+				<xs:enumeration value="IRRADIANCE.UPWELLED"/>
+				<xs:enumeration value="LAND.SURFACE.TEMPERATURE"/>
+				<xs:enumeration value="LATITUDE"/>
+				<xs:enumeration value="LATITUDE.INSTRUMENT"/>
+				<xs:enumeration value="LEAF.AREA.INDEX"/>
+				<xs:enumeration value="LEVEL"/>
+				<xs:enumeration value="LONGITUDE"/>
+				<xs:enumeration value="LONGITUDE.INSTRUMENT"/>
+				<xs:enumeration value="N2.COLUMN"/>
+				<xs:enumeration value="N2O.COLUMN"/>
+				<xs:enumeration value="N2O.COLUMN.PARTIAL"/>
+				<xs:enumeration value="N2O.MIXING.RATIO"/>
+				<xs:enumeration value="N2O.NUMBER.DENSITY"/>
+				<xs:enumeration value="NH3.COLUMN"/>
+				<xs:enumeration value="NO2.COLUMN"/>
+				<xs:enumeration value="NO2.COLUMN.PARTIAL"/>
+				<xs:enumeration value="NO2.COLUMN.SLANT"/>
+				<xs:enumeration value="NO2.COLUMN.SLANT.DIFFERENTIAL"/>
+				<xs:enumeration value="NO2.COLUMN.STRATOSPHERIC"/>
+				<xs:enumeration value="NO2.COLUMN.TROPOSPHERIC"/>
+				<xs:enumeration value="NO2.MIXING.RATIO"/>
+				<xs:enumeration value="NO2.NUMBER.DENSITY"/>
+				<xs:enumeration value="NO3.MIXING.RATIO"/>
+				<xs:enumeration value="NO3.NUMBER.DENSITY"/>
+				<xs:enumeration value="NO.COLUMN"/>
+				<xs:enumeration value="NO.MIXING.RATIO"/>
+				<xs:enumeration value="NO.NUMBER.DENSITY"/>
+				<xs:enumeration value="NOY.MIXING.RATIO"/>
+				<xs:enumeration value="NUMBER.DENSITY"/>
+				<xs:enumeration value="O3.COLUMN"/>
+				<xs:enumeration value="O3.COLUMN.PARTIAL"/>
+				<xs:enumeration value="O3.COLUMN.SLANT"/>
+				<xs:enumeration value="O3.COLUMN.SLANT.DIFFERENTIAL"/>
+				<xs:enumeration value="O3.COLUMN.STRATOSPHERIC"/>
+				<xs:enumeration value="O3.COLUMN.TROPOSPHERIC"/>
+				<xs:enumeration value="O3.MIXING.RATIO"/>
+				<xs:enumeration value="O3.NUMBER.DENSITY"/>
+				<xs:enumeration value="O3.PARTIAL.PRESSURE"/>
+				<xs:enumeration value="O4.COLUMN"/>
+				<xs:enumeration value="OClO.COLUMN"/>
+				<xs:enumeration value="OClO.COLUMN.PARTIAL"/>
+				<xs:enumeration value="OClO.COLUMN.SLANT"/>
+				<xs:enumeration value="OClO.COLUMN.SLANT.DIFFERENTIAL"/>
+				<xs:enumeration value="OClO.COLUMN.STRATOSPHERIC"/>
+				<xs:enumeration value="OClO.MIXING.RATIO"/>
+				<xs:enumeration value="OClO.NUMBER.DENSITY"/>
+				<xs:enumeration value="OPACITY.ATMOSPHERIC"/>
+				<xs:enumeration value="OPACITY.ATMOSPHERIC.VERTICAL"/>
+				<xs:enumeration value="ORBIT.NUMBER"/>
+				<xs:enumeration value="PATH.DIFFERENCE"/>
+				<xs:enumeration value="PIXEL.DISTANCE"/>
+				<xs:enumeration value="PIXEL.NUMBER"/>
+				<xs:enumeration value="POTENTIAL.VORTICITY"/>
+				<xs:enumeration value="PRESSURE"/>
+				<xs:enumeration value="PRESSURE.BOUNDARIES"/>
+				<xs:enumeration value="PRESSURE.DRY"/>
+				<xs:enumeration value="PRESSURE.LEVEL.INDEX"/>
+				<xs:enumeration value="PUMP.CORRECTION"/>
+				<xs:enumeration value="RADIANCE.DOWNWELLED.SKY"/>
+				<xs:enumeration value="RADIANCE.DOWNWELLING"/>
+				<xs:enumeration value="RADIANCE.UPWELLED"/>
+				<xs:enumeration value="RADIANCE.UPWELLING"/>
+				<xs:enumeration value="RANGE"/>
+				<xs:enumeration value="REFLECTANCE"/>
+				<xs:enumeration value="REFLECTANCE.RHOW"/>
+				<xs:enumeration value="REFLECTIVITY"/>
+				<xs:enumeration value="REFRACTIVITY"/>
+				<xs:enumeration value="SALINITY"/>
+				<xs:enumeration value="SEA.STATE"/>
+				<xs:enumeration value="SEA.SURFACE.HEIGHT"/>
+				<xs:enumeration value="SEA.SURFACE.PRESSURE"/>
+				<xs:enumeration value="SEA.SURFACE.TEMPERATURE"/>
+				<xs:enumeration value="SEA.SURFACE.TEMPERATURE.SKIN"/>
+				<xs:enumeration value="SEA.SURFACE.TEMPERATURE.SUBSKIN"/>
+				<xs:enumeration value="SEA.SURFACE.WAVE.HEIGHT.SIGNIFICANT"/>
+				<xs:enumeration value="SEA.SURFACE.WAVE.HEIGHT.SWELL"/>
+				<xs:enumeration value="SEA.SURFACE.WAVE.SPECTRAL.DENSITY.VARIANCE"/>
+				<xs:enumeration value="SF6.MIXING.RATIO"/>
+				<xs:enumeration value="SITE.CROP"/>
+				<xs:enumeration value="SITE.FIELD"/>
+				<xs:enumeration value="SITE.POINT"/>
+				<xs:enumeration value="SKY.CODE"/>
+				<xs:enumeration value="SKY.CONDITION"/>
+				<xs:enumeration value="SO2.COLUMN"/>
+				<xs:enumeration value="SO2.COLUMN.PARTIAL"/>
+				<xs:enumeration value="SO2.COLUMN.STRATOSPHERIC"/>
+				<xs:enumeration value="SO2.COLUMN.TROPOSPHERIC"/>
+				<xs:enumeration value="SO2.MIXING.RATIO"/>
+				<xs:enumeration value="SOURCE.PRODUCT"/>
+				<xs:enumeration value="SPEED"/>
+				<xs:enumeration value="SURFACE.CODE"/>
+				<xs:enumeration value="SURFACE.PRESSURE"/>
+				<xs:enumeration value="SURFACE.TEMPERATURE"/>
+				<xs:enumeration value="TEMPERATURE"/>
+				<xs:enumeration value="TEMPERATURE.BRIGHTNESS"/>
+				<xs:enumeration value="TEMPERATURE.DRY"/>
+				<xs:enumeration value="TEMPERATURE.RADIOMETRIC"/>
+				<xs:enumeration value="THETA"/>
+				<xs:enumeration value="TROPOSPHERIC.DELAY"/>
+				<xs:enumeration value="TSM.CONCENTRATION"/>
+				<xs:enumeration value="UV.INDEX"/>
+				<xs:enumeration value="VISIBILITY"/>
+				<xs:enumeration value="WAVE.DIRECTION"/>
+				<xs:enumeration value="WAVELENGTH"/>
+				<xs:enumeration value="WAVELENGTH.CENTRAL"/>
+				<xs:enumeration value="WAVELENGTH.FWHM"/>
+				<xs:enumeration value="WAVENUMBER"/>
+				<xs:enumeration value="WAVE.TYPE"/>
+				<xs:enumeration value="WIND.DIRECTION"/>
+				<xs:enumeration value="WIND.SPEED"/>
+				<xs:enumeration value="YSBPA"/>
+				<xs:enumeration value="YS"/>
+				<xs:enumeration value="PROFILE.DATA.MODE"/>
+				<xs:enumeration value="PROFILE.DIRECTION"/>
+				<xs:enumeration value="WATER.PRESSURE"/>
+				<xs:enumeration value="WATER.TEMPERATURE"/>
+				<xs:enumeration value="O2.DISSOLVED.NUMBER.DENSITY"/>
+				<xs:enumeration value="O2.DISSOLVED.MIXING.RATIO"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="origin">
+		<xs:annotation>
+			<xs:documentation>Origin of the data (codelist as per GEOMS guidelines DATA_GROUP first part)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="EXPERIMENTAL"/>
+				<xs:enumeration value="MIXED"/>
+				<xs:enumeration value="MODEL"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="productType" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Type of product corresponds to eocdcio "template"</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="measurementStatus">
+		<xs:annotation>
+			<xs:documentation>code list to be determined</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Approved"/>
+				<xs:enumeration value="Deprecated"/>
+				<xs:enumeration value="Withdrawn"/>
+				<xs:enumeration value="Archived"/>
+				<xs:enumeration value="Planned"/>
+				<xs:enumeration value="Potential"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:complexType name="PersonIdentificationType" mixed="true">
+		<xs:sequence>
+			<xs:element name="affiliationCode" type="eocdcio:affiliationCodeType" minOccurs="0"/>
+			<xs:element name="personName" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonIdentificationPropertyType">
+		<xs:sequence>
+			<xs:element name="PersonIdentification" type="eocdcio:PersonIdentificationType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="affiliationNameType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Alfred-Wegener-Institut fuer Polar und Meeresforschung"/>
+			<xs:enumeration value="Aristotle University of Thessaloniki, Laboratory of Atmospheric Physics"/>
+			<xs:enumeration value="Australian Bureau of Meteorology"/>
+			<xs:enumeration value="Belgian Institute for Space Aeronomy"/>
+			<xs:enumeration value="British Antarctic Survey"/>
+			<xs:enumeration value="Center for Satellite Exploitation and Research"/>
+			<xs:enumeration value="Central Aerological Observatory"/>
+			<xs:enumeration value="Centre for Atmospheric Research Experiments, Science and Technology Branch, Environment Canada"/>
+			<xs:enumeration value="Centro de Investigaciones en Laseres y Aplicaciones"/>
+			<xs:enumeration value="Chalmers University of Technology"/>
+			<xs:enumeration value="City University of New York"/>
+			<xs:enumeration value="Czech HydroMeteorological Institute - Prague"/>
+			<xs:enumeration value="Danish Meteorological Institute"/>
+			<xs:enumeration value="Department of Meteorology Stockholm University"/>
+			<xs:enumeration value="Deutscher Wetterdienst"/>
+			<xs:enumeration value="Deutsches Zentrum fuer Luft- und Raumfahrt"/>
+			<xs:enumeration value="Environmental Research and Services"/>
+			<xs:enumeration value="European Commission - Joint Research Centre"/>
+			<xs:enumeration value="Finnish Meteorological Institute"/>
+			<xs:enumeration value="Forschungszentrum Juelich"/>
+			<xs:enumeration value="Forschungszentrum Karlsruhe"/>
+			<xs:enumeration value="Forschungszentrum Karlsruhe - Institut fuer Meteorologie und Klimaforschung -  Atmosphaerische Umweltforschung"/>
+			<xs:enumeration value="Fraunhofer-Institut fuer Atmosphaerische Umweltforschung"/>
+			<xs:enumeration value="Hampton University"/>
+			<xs:enumeration value="Hokkaido University"/>
+			<xs:enumeration value="Howard University"/>
+			<xs:enumeration value="Institute for Environmental Studies - Vrije Universiteit Amsterdam"/>
+			<xs:enumeration value="Institute of Atmospheric Physics - Russian Academy of Sciences"/>
+			<xs:enumeration value="Institute of Experimental Meteorology"/>
+			<xs:enumeration value="Institute of Meteorology and Water Management"/>
+			<xs:enumeration value="Institut fuer Ostseeforschung"/>
+			<xs:enumeration value="Institut fuer Umweltphysik, Universitaet Bremen"/>
+			<xs:enumeration value="Instituto Nacional de Pesquisas Espaciais"/>
+			<xs:enumeration value="Instituto Nacional de Tecnica Aerospacial"/>
+			<xs:enumeration value="Istituto di Fisica Applicata Nello Carrara del CNR"/>
+			<xs:enumeration value="Istituto di Fisica dell Atmosfera e del Clima del CNR"/>
+			<xs:enumeration value="Istituto di Metodologie Avanzate di Analisi Ambientale del CNR"/>
+			<xs:enumeration value="Istituto Nazionale di Geofisica e Vulcanologia"/>
+			<xs:enumeration value="Japan Meteorological Agency"/>
+			<xs:enumeration value="Kyoto University - Radio Science Center for Space and Atmosphere"/>
+			<xs:enumeration value="Kyrgystan State National University"/>
+			<xs:enumeration value="Laboratoire d'Aerologie du CNRS"/>
+			<xs:enumeration value="Laboratoire de Meteorologie Dynamique du CNRS"/>
+			<xs:enumeration value="Laboratoire de Physique de l'Atmosphere de la Reunion"/>
+			<xs:enumeration value="Laboratoire de Physique et Chimie de l\'Environnement du CNRS"/>
+			<xs:enumeration value="Laboratoire de Physique et Chimie Marines du CNRS"/>
+			<xs:enumeration value="Laboratoire de Physique Moleculaire et Applications du CNRS"/>
+			<xs:enumeration value="Los Alamos National Laboratory"/>
+			<xs:enumeration value="Main Geophysical Observatory"/>
+			<xs:enumeration value="Malaysian Meteorological Service"/>
+			<xs:enumeration value="Management Unit of the North Sea Mathematical Models"/>
+			<xs:enumeration value="Meteorological Service of Canada"/>
+			<xs:enumeration value="Nansen Environmental and Remote Sensing Center"/>
+			<xs:enumeration value="NASA Ames Research Center"/>
+			<xs:enumeration value="NASA Goddard Space Flight Center"/>
+			<xs:enumeration value="NASA Jet Propulsion Laboratory"/>
+			<xs:enumeration value="NASA Wallops Flight Facility"/>
+			<xs:enumeration value="National Center for Atmospheric Research"/>
+			<xs:enumeration value="National Institute for Environmental Studies"/>
+			<xs:enumeration value="National Institute for Environmental Studies, Tsukuba, Japan"/>
+			<xs:enumeration value="National Institute of Information and Communications Technology"/>
+			<xs:enumeration value="National Institute of Public Health and the Environment"/>
+			<xs:enumeration value="National Institute of Water and Atmospheric Research"/>
+			<xs:enumeration value="National Meteorological Service of Argentina"/>
+			<xs:enumeration value="National Oceanographic Data Center"/>
+			<xs:enumeration value="National Taras Shevchenko University of Kyiv"/>
+			<xs:enumeration value="Naval Research Laboratory"/>
+			<xs:enumeration value="NIWA Environmental Research Institute"/>
+			<xs:enumeration value="NOAA Earth System Research Laboratory"/>
+			<xs:enumeration value="Norwegian Institute for Air Research"/>
+			<xs:enumeration value="Norwegian Institute for Water Research"/>
+			<xs:enumeration value="Observatoire de Neuchatel"/>
+			<xs:enumeration value="Pennsylvania State University"/>
+			<xs:enumeration value="Plymouth Marine Laboratory"/>
+			<xs:enumeration value="Royal Meteorological Institute of Belgium"/>
+			<xs:enumeration value="Royal Netherlands Meteorological Institute"/>
+			<xs:enumeration value="Service d\'Aeronomie du CNRS"/>
+			<xs:enumeration value="South African Weather Service"/>
+			<xs:enumeration value="State University of New York at Stony Brook"/>
+			<xs:enumeration value="St.Petersburg State University"/>
+			<xs:enumeration value="Swedish Institute of Space Physics"/>
+			<xs:enumeration value="Swiss Federal Institute of Technology - Zurich"/>
+			<xs:enumeration value="Swiss Meteorological Institute"/>
+			<xs:enumeration value="United Kingdom Meteorological Office"/>
+			<xs:enumeration value="Universita di Roma 'La Sapienza' - Centro di Ricerca Progetto San Marco"/>
+			<xs:enumeration value="University of Alabama Huntsville"/>
+			<xs:enumeration value="University of Bern"/>
+			<xs:enumeration value="University of Bonn"/>
+			<xs:enumeration value="University of Frankfurt"/>
+			<xs:enumeration value="University of Heidelberg"/>
+			<xs:enumeration value="University of L\'Aquila"/>
+			<xs:enumeration value="University of Leicester"/>
+			<xs:enumeration value="University of Liege"/>
+			<xs:enumeration value="University of Massachusetts"/>
+			<xs:enumeration value="University of Miami"/>
+			<xs:enumeration value="University of Rhode Island, Graduate School of Oceanography"/>
+			<xs:enumeration value="University of Southampton"/>
+			<xs:enumeration value="University of Valencia, Facultad de Fisica"/>
+			<xs:enumeration value="University of Valencia"/>
+			<xs:enumeration value="University of Wales Aberystwyth"/>
+			<xs:enumeration value="University of Wollongong"/>
+			<xs:enumeration value="Valparaiso University"/>
+			<xs:enumeration value="Wegener Center for Climate and Global Change"/>
+			<xs:enumeration value="World Meteorological Organisation"/>
+			<xs:enumeration value="Laboratoire de Physique des Oceans"/>
+			<xs:enumeration value="Logica UK Limited"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="affiliationCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AWI"/>
+			<xs:enumeration value="AUTH.LAP"/>
+			<xs:enumeration value="ABM"/>
+			<xs:enumeration value="BIRA.IASB"/>
+			<xs:enumeration value="BAS"/>
+			<xs:enumeration value="CERSAT"/>
+			<xs:enumeration value="CAO"/>
+			<xs:enumeration value="CARE.STB.EC"/>
+			<xs:enumeration value="CEILAP"/>
+			<xs:enumeration value="CTH"/>
+			<xs:enumeration value="CUNY"/>
+			<xs:enumeration value="CHMI.PR"/>
+			<xs:enumeration value="DMI"/>
+			<xs:enumeration value="MISU"/>
+			<xs:enumeration value="DWD"/>
+			<xs:enumeration value="DLR"/>
+			<xs:enumeration value="ERS"/>
+			<xs:enumeration value="EC.JRC"/>
+			<xs:enumeration value="FMI"/>
+			<xs:enumeration value="FZJ"/>
+			<xs:enumeration value="FZK"/>
+			<xs:enumeration value="IMK.IFU"/>
+			<xs:enumeration value="IFU"/>
+			<xs:enumeration value="HU"/>
+			<xs:enumeration value="UHOKKAIDO"/>
+			<xs:enumeration value="UHOWARD"/>
+			<xs:enumeration value="IVM"/>
+			<xs:enumeration value="RAS.IAP"/>
+			<xs:enumeration value="IEM"/>
+			<xs:enumeration value="IMGW"/>
+			<xs:enumeration value="IMWM"/>
+			<xs:enumeration value="IOW"/>
+			<xs:enumeration value="IUP"/>
+			<xs:enumeration value="INPE"/>
+			<xs:enumeration value="INTA"/>
+			<xs:enumeration value="CNR.IFAC"/>
+			<xs:enumeration value="CNR.ISAC"/>
+			<xs:enumeration value="CNR.IMAAA"/>
+			<xs:enumeration value="INGV.RM"/>
+			<xs:enumeration value="JMA"/>
+			<xs:enumeration value="UKYOTO.RASC"/>
+			<xs:enumeration value="KSNU"/>
+			<xs:enumeration value="CNRS.LA"/>
+			<xs:enumeration value="CNRS.LMD"/>
+			<xs:enumeration value="UREUNION.LPA"/>
+			<xs:enumeration value="CNRS.LPCE"/>
+			<xs:enumeration value="CNRS.LPCM"/>
+			<xs:enumeration value="CNRS.LPMA"/>
+			<xs:enumeration value="LANL"/>
+			<xs:enumeration value="MGO"/>
+			<xs:enumeration value="MMS"/>
+			<xs:enumeration value="MUMM"/>
+			<xs:enumeration value="MSC"/>
+			<xs:enumeration value="NERSC"/>
+			<xs:enumeration value="NASA.ARC"/>
+			<xs:enumeration value="NASA.GSFC"/>
+			<xs:enumeration value="NASA.JPL"/>
+			<xs:enumeration value="NASA.WFF"/>
+			<xs:enumeration value="NCAR"/>
+			<xs:enumeration value="NIES"/>
+			<xs:enumeration value="NICT"/>
+			<xs:enumeration value="RIVM"/>
+			<xs:enumeration value="NIWA"/>
+			<xs:enumeration value="SMNA"/>
+			<xs:enumeration value="NODC"/>
+			<xs:enumeration value="KTSU"/>
+			<xs:enumeration value="NRL"/>
+			<xs:enumeration value="NIWA.ERI"/>
+			<xs:enumeration value="NOAA.ESRL"/>
+			<xs:enumeration value="NILU"/>
+			<xs:enumeration value="NIVA"/>
+			<xs:enumeration value="ON"/>
+			<xs:enumeration value="PSU"/>
+			<xs:enumeration value="PML"/>
+			<xs:enumeration value="RMI"/>
+			<xs:enumeration value="KNMI"/>
+			<xs:enumeration value="CNRS.SA"/>
+			<xs:enumeration value="SAWS"/>
+			<xs:enumeration value="SUNYSB"/>
+			<xs:enumeration value="SPBSU"/>
+			<xs:enumeration value="IRF"/>
+			<xs:enumeration value="ETHZ"/>
+			<xs:enumeration value="MCH"/>
+			<xs:enumeration value="UKMO"/>
+			<xs:enumeration value="UROMA.CRPSM"/>
+			<xs:enumeration value="UAH"/>
+			<xs:enumeration value="UBERN"/>
+			<xs:enumeration value="UBONN"/>
+			<xs:enumeration value="UFRANKFURT"/>
+			<xs:enumeration value="UHEIDELBERG"/>
+			<xs:enumeration value="UNIVAQ"/>
+			<xs:enumeration value="ULEICESTER"/>
+			<xs:enumeration value="ULG"/>
+			<xs:enumeration value="UMASS"/>
+			<xs:enumeration value="UMIAMI"/>
+			<xs:enumeration value="URI.GSO"/>
+			<xs:enumeration value="USOUTHAMPTON"/>
+			<xs:enumeration value="UVAL.FISICA"/>
+			<xs:enumeration value="UVAL"/>
+			<xs:enumeration value="UWA"/>
+			<xs:enumeration value="UOW"/>
+			<xs:enumeration value="VALPO"/>
+			<xs:enumeration value="WEGC"/>
+			<xs:enumeration value="WMO"/>
+			<xs:enumeration value="LPO"/>
+			<xs:enumeration value="LOGICA"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="processing" type="eocdcio:ProcessingInformationPropertyType"/>
+	<xs:complexType name="ProcessingInformationPropertyType">
+		<xs:sequence>
+			<xs:element ref="eocdcio:ProcessingInformation" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ProcessingInformation" type="eocdcio:ProcessingInformationType"/>
+	<xs:complexType name="ProcessingInformationType">
+		<xs:sequence>
+			<xs:element name="processorName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Name of the processing software </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="processorVersion" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Version of the processing software</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- CorrelativeProductSpatialExtent -->
+	<xs:element name="CorrelativeProductSpatialExtent" type="eocdcio:CorrelativeProductSpatialExtentType" substitutionGroup="gml:AbstractFeature">
+		<xs:annotation>
+			<xs:documentation>Defines the spatial extent of the data.  The location on the earh surface may either be indicated by the name of a fixed location, by a point location or by a polygonal footprint.   Both the pointlocation and the footprint are to be expressed in geographical coordinates (WGS84 datum) (CRS:84).  The altitude of the data product is indicated by a lowestaltitude and a highestaltitude element that should contain the height above the earth surface expressed in meters.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CorrelativeProductSpatialExtentType" mixed="false">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element ref="eocdcio:fixedLocationName" minOccurs="0"/>
+					<xs:sequence>
+						<xs:element ref="eocdcio:pointLocation" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Coordinates of a Point Location (GML-Point  WGS84 Geographical Coordinates - CRS:84).  Expected structure is gml:Point/gml:pos.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element ref="gml:multiExtentOf" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Coordinates of the Footpint (GML- MultiPolygon WGS84 Geographical Coordinates - CRS:84). Expected structure is gml:Polygon/gml:exterior/gml:LinearRing/gml:posList.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:element name="lowestAltitude" minOccurs="0"/>
+					<xs:element name="highestAltitude" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="pointLocation" type="gml:PointPropertyType" substitutionGroup="gml:pointProperty"/>
+	<xs:element name="fixedLocationName">
+		<xs:annotation>
+			<xs:documentation>Name of the well-known fixed locations as per the GEOMS guidelines</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="AARHUS"/>
+				<xs:enumeration value="ABASTUMANI"/>
+				<xs:enumeration value="ABERYSTWYTH"/>
+				<xs:enumeration value="ABHA"/>
+				<xs:enumeration value="ACADIA.ME"/>
+				<xs:enumeration value="ADELAIDE"/>
+				<xs:enumeration value="ADRIATIC.SEA"/>
+				<xs:enumeration value="AHMADABAD"/>
+				<xs:enumeration value="AIRE.SUR.L.ADOUR"/>
+				<xs:enumeration value="ALBUQUERQUE.NM"/>
+				<xs:enumeration value="ALEPPO"/>
+				<xs:enumeration value="ALERT"/>
+				<xs:enumeration value="ALEXANDRIA.BAY.NY"/>
+				<xs:enumeration value="ALEXANDRIA"/>
+				<xs:enumeration value="ALICE.SPRINGS"/>
+				<xs:enumeration value="ALMA.ATA"/>
+				<xs:enumeration value="ALOMAR"/>
+				<xs:enumeration value="AMSTERDAM.ISLAND"/>
+				<xs:enumeration value="AMSTERDAM"/>
+				<xs:enumeration value="AMUNDSEN.SCOTT"/>
+				<xs:enumeration value="ANDENES"/>
+				<xs:enumeration value="ANKARA"/>
+				<xs:enumeration value="ARALSKOE.MORE"/>
+				<xs:enumeration value="ARKHANGELSK"/>
+				<xs:enumeration value="ARKONA"/>
+				<xs:enumeration value="AROSA"/>
+				<xs:enumeration value="ARRIVAL.HEIGHTS"/>
+				<xs:enumeration value="ASCENSION.ISLAND"/>
+				<xs:enumeration value="ASHKHABAD"/>
+				<xs:enumeration value="ASPENDALE"/>
+				<xs:enumeration value="ASUNCION"/>
+				<xs:enumeration value="ASWAN"/>
+				<xs:enumeration value="ATHENS"/>
+				<xs:enumeration value="ATLANTA.GA"/>
+				<xs:enumeration value="ATLANTIC"/>
+				<xs:enumeration value="AUGUSTINE.ISLAND.AK"/>
+				<xs:enumeration value="BAGHDAD"/>
+				<xs:enumeration value="BAHRAIN"/>
+				<xs:enumeration value="BAHR.DAR"/>
+				<xs:enumeration value="BALBOA"/>
+				<xs:enumeration value="BALTIC.SEA"/>
+				<xs:enumeration value="BANGALORE"/>
+				<xs:enumeration value="BANGKOK"/>
+				<xs:enumeration value="BARBADOS"/>
+				<xs:enumeration value="BARENTSBURG"/>
+				<xs:enumeration value="BARRAX"/>
+				<xs:enumeration value="BARROW.AK"/>
+				<xs:enumeration value="BASEL"/>
+				<xs:enumeration value="BATON.ROUGE.LA"/>
+				<xs:enumeration value="BAURU"/>
+				<xs:enumeration value="BAYKONUR"/>
+				<xs:enumeration value="BE.130"/>
+				<xs:enumeration value="BE.230"/>
+				<xs:enumeration value="BEAR.ISLAND"/>
+				<xs:enumeration value="BEAR.LAKE.UT"/>
+				<xs:enumeration value="BEIJING"/>
+				<xs:enumeration value="BELGRANO"/>
+				<xs:enumeration value="BELSK"/>
+				<xs:enumeration value="BELTSVILLE.MD"/>
+				<xs:enumeration value="BE.MC5"/>
+				<xs:enumeration value="BENARES"/>
+				<xs:enumeration value="BERLIN"/>
+				<xs:enumeration value="BERN"/>
+				<xs:enumeration value="BIG.BEND.TX"/>
+				<xs:enumeration value="BIRMINGHAM"/>
+				<xs:enumeration value="BISCARROSSE"/>
+				<xs:enumeration value="BISMARCK.ND"/>
+				<xs:enumeration value="BLANES"/>
+				<xs:enumeration value="BLIGH.REEF.AK"/>
+				<xs:enumeration value="BOGOTA"/>
+				<xs:enumeration value="BOLSHAYA.ELAN"/>
+				<xs:enumeration value="BOMBAY"/>
+				<xs:enumeration value="BORDEAUX"/>
+				<xs:enumeration value="BOSSANGOA"/>
+				<xs:enumeration value="BOSTON.MA"/>
+				<xs:enumeration value="BOULDER.CO"/>
+				<xs:enumeration value="BOZEMAN.MT"/>
+				<xs:enumeration value="BRACKNELL"/>
+				<xs:enumeration value="BRASIL"/>
+				<xs:enumeration value="BRASILIA"/>
+				<xs:enumeration value="BRATTS.LAKE"/>
+				<xs:enumeration value="BRAZZAVILLE"/>
+				<xs:enumeration value="BREMEN"/>
+				<xs:enumeration value="BRIANCON"/>
+				<xs:enumeration value="BRINDISI"/>
+				<xs:enumeration value="BRISBANE"/>
+				<xs:enumeration value="BROADMEADOWS"/>
+				<xs:enumeration value="BUCHAREST"/>
+				<xs:enumeration value="BUDAPEST"/>
+				<xs:enumeration value="BUENOS.AIRES"/>
+				<xs:enumeration value="BURLINGTON.VT"/>
+				<xs:enumeration value="BUZZARDS.BAY.MA"/>
+				<xs:enumeration value="BYRD"/>
+				<xs:enumeration value="CABAUW"/>
+				<xs:enumeration value="CACHOEIRA.PAULISTA"/>
+				<xs:enumeration value="CAGLIARI"/>
+				<xs:enumeration value="CAHERCIVEEN"/>
+				<xs:enumeration value="CAIRNS"/>
+				<xs:enumeration value="CAIRO"/>
+				<xs:enumeration value="CAMAGUEY"/>
+				<xs:enumeration value="CAMBORNE"/>
+				<xs:enumeration value="CANTON.ISLAND"/>
+				<xs:enumeration value="CANYONLANDS.UT"/>
+				<xs:enumeration value="CAPE.ARAGO.OR"/>
+				<xs:enumeration value="CAPE.GRIM"/>
+				<xs:enumeration value="CAPE.LOOKOUT.NC"/>
+				<xs:enumeration value="CARACAS"/>
+				<xs:enumeration value="CARDZOU"/>
+				<xs:enumeration value="CARIBBEAN"/>
+				<xs:enumeration value="CARIBOU.ME"/>
+				<xs:enumeration value="CARPENTRAS"/>
+				<xs:enumeration value="CASABLANCA"/>
+				<xs:enumeration value="CEDAR.KEY.FL"/>
+				<xs:enumeration value="CHENGKUNG"/>
+				<xs:enumeration value="CHESAPEAKE.VA"/>
+				<xs:enumeration value="CHICAGO.IL"/>
+				<xs:enumeration value="CHILCA"/>
+				<xs:enumeration value="CHITRAL"/>
+				<xs:enumeration value="CHOPAK"/>
+				<xs:enumeration value="CHRISTCHURCH"/>
+				<xs:enumeration value="CHRISTMAS.ISLAND"/>
+				<xs:enumeration value="CHURCHILL"/>
+				<xs:enumeration value="CIMLJANSK"/>
+				<xs:enumeration value="COLD.LAKE"/>
+				<xs:enumeration value="COLLEGE.STATION.TX"/>
+				<xs:enumeration value="COLOGNE"/>
+				<xs:enumeration value="COMODORO.RIVADAVIA"/>
+				<xs:enumeration value="CONCORDIA"/>
+				<xs:enumeration value="CONCORD.NH"/>
+				<xs:enumeration value="COPENHAGEN"/>
+				<xs:enumeration value="COTONOU"/>
+				<xs:enumeration value="CUIABA"/>
+				<xs:enumeration value="DAKAR"/>
+				<xs:enumeration value="DALLAS.TX"/>
+				<xs:enumeration value="DAR.ES.SALAAM"/>
+				<xs:enumeration value="DARWIN"/>
+				<xs:enumeration value="DAVIS"/>
+				<xs:enumeration value="DE.BILT"/>
+				<xs:enumeration value="DENALI.AK"/>
+				<xs:enumeration value="DENVER.CO"/>
+				<xs:enumeration value="DES.MOINES.IA"/>
+				<xs:enumeration value="DETROIT.MI"/>
+				<xs:enumeration value="DHAKA"/>
+				<xs:enumeration value="DIKSON.ISLAND"/>
+				<xs:enumeration value="DOME.C"/>
+				<xs:enumeration value="DRESDEN"/>
+				<xs:enumeration value="DUBLIN"/>
+				<xs:enumeration value="DUM.DUM"/>
+				<xs:enumeration value="DUMONT.D.URVILLE"/>
+				<xs:enumeration value="DURBAN"/>
+				<xs:enumeration value="DUSHANBE"/>
+				<xs:enumeration value="EAST.AMATULI.AK"/>
+				<xs:enumeration value="EASTER.ISLAND"/>
+				<xs:enumeration value="EDINBURGH"/>
+				<xs:enumeration value="EDMONTON"/>
+				<xs:enumeration value="EGBERT"/>
+				<xs:enumeration value="EKONA"/>
+				<xs:enumeration value="EL.ARENOSILLO"/>
+				<xs:enumeration value="EL.PASO.TX"/>
+				<xs:enumeration value="ENGLISH.CHANNEL"/>
+				<xs:enumeration value="ESFAHAN"/>
+				<xs:enumeration value="ESKDALEMUIR"/>
+				<xs:enumeration value="ESRANGE"/>
+				<xs:enumeration value="ETOSHA.PAN"/>
+				<xs:enumeration value="EUREKA"/>
+				<xs:enumeration value="EVERGLADES.FL"/>
+				<xs:enumeration value="FAIRBANKS.AK"/>
+				<xs:enumeration value="FALCON"/>
+				<xs:enumeration value="FEODOSIJA"/>
+				<xs:enumeration value="FICHTELBERG"/>
+				<xs:enumeration value="FORLI"/>
+				<xs:enumeration value="FORT.SHERMAN"/>
+				<xs:enumeration value="FRESNO.CA"/>
+				<xs:enumeration value="FUNCHAL"/>
+				<xs:enumeration value="GAINESVILLE.FL"/>
+				<xs:enumeration value="GAITHERSBURG.MD"/>
+				<xs:enumeration value="GAN.ISLAND"/>
+				<xs:enumeration value="GARDERMOEN"/>
+				<xs:enumeration value="GARMISCH"/>
+				<xs:enumeration value="GENEVA"/>
+				<xs:enumeration value="GEOPHYSICA"/>
+				<xs:enumeration value="GEORGETOWN.TX"/>
+				<xs:enumeration value="GIMLI"/>
+				<xs:enumeration value="GLACIER.MT"/>
+				<xs:enumeration value="GLASGOW"/>
+				<xs:enumeration value="GLOBAL"/>
+				<xs:enumeration value="GODDARD.SPACE.FLIGHT.CENTER.MD"/>
+				<xs:enumeration value="GONGHE"/>
+				<xs:enumeration value="GOOSE.BAY"/>
+				<xs:enumeration value="GREAT.SMOKEY.MTNS.NATL.PARK.TN"/>
+				<xs:enumeration value="GREEN.BAY.WI"/>
+				<xs:enumeration value="GUADALAJARA"/>
+				<xs:enumeration value="GUANGZHOU"/>
+				<xs:enumeration value="GURYEV"/>
+				<xs:enumeration value="HALIFAX"/>
+				<xs:enumeration value="HALLEY.BAY"/>
+				<xs:enumeration value="HAMBURG"/>
+				<xs:enumeration value="HAMILTON"/>
+				<xs:enumeration value="HAMPTON.VA"/>
+				<xs:enumeration value="HANFORD.CA"/>
+				<xs:enumeration value="HANOI"/>
+				<xs:enumeration value="HANTY.MANSIJSK"/>
+				<xs:enumeration value="HARESTUA"/>
+				<xs:enumeration value="HAUTE.PROVENCE"/>
+				<xs:enumeration value="HAVANA"/>
+				<xs:enumeration value="HEISS.ISLAND"/>
+				<xs:enumeration value="HELSINKI"/>
+				<xs:enumeration value="HILO.HI"/>
+				<xs:enumeration value="HOBART"/>
+				<xs:enumeration value="HO.CHI.MINH.CITY"/>
+				<xs:enumeration value="HOHENPEISSENBERG"/>
+				<xs:enumeration value="HOLTVILLE.CA"/>
+				<xs:enumeration value="HONEYBROOK.PA"/>
+				<xs:enumeration value="HORNSUND"/>
+				<xs:enumeration value="HOUSTON.TX"/>
+				<xs:enumeration value="HRADEC.KRALOVE"/>
+				<xs:enumeration value="HUANCAYO"/>
+				<xs:enumeration value="HUNTSVILLE.AL"/>
+				<xs:enumeration value="HURGHADA"/>
+				<xs:enumeration value="HYDERABAD"/>
+				<xs:enumeration value="IGARKA"/>
+				<xs:enumeration value="INSELSBERG"/>
+				<xs:enumeration value="INVERCARGILL"/>
+				<xs:enumeration value="IQUALUIT"/>
+				<xs:enumeration value="IRENE"/>
+				<xs:enumeration value="IRKUTSK"/>
+				<xs:enumeration value="ISLA.DE.VIAQUEZ"/>
+				<xs:enumeration value="ISPRA"/>
+				<xs:enumeration value="ISSYK.KUL"/>
+				<xs:enumeration value="IZANA"/>
+				<xs:enumeration value="IZOBAMBA"/>
+				<xs:enumeration value="JAKARTA"/>
+				<xs:enumeration value="JEDDAH"/>
+				<xs:enumeration value="JERUSALEM"/>
+				<xs:enumeration value="JOHANNESBURG"/>
+				<xs:enumeration value="JOKIOINEN"/>
+				<xs:enumeration value="JUJUY"/>
+				<xs:enumeration value="JUNGFRAUJOCH"/>
+				<xs:enumeration value="KAASHIDHOO.BAY"/>
+				<xs:enumeration value="KAGOSHIMA"/>
+				<xs:enumeration value="KALTENNORDHEIM"/>
+				<xs:enumeration value="KAMPALA"/>
+				<xs:enumeration value="KARACHI"/>
+				<xs:enumeration value="KARAGANDA"/>
+				<xs:enumeration value="KAUNAS"/>
+				<xs:enumeration value="KEFLAVIK"/>
+				<xs:enumeration value="KELOWNA"/>
+				<xs:enumeration value="KENNEDY.SPACE.CENTER.FL"/>
+				<xs:enumeration value="KERGUELEN"/>
+				<xs:enumeration value="KHOMAS.HIGHLAND"/>
+				<xs:enumeration value="KIEV"/>
+				<xs:enumeration value="KILIMANJARO"/>
+				<xs:enumeration value="KING.EDWARD.POINT"/>
+				<xs:enumeration value="KING.GEORGE.ISLAND"/>
+				<xs:enumeration value="KINGSTON"/>
+				<xs:enumeration value="KIRUNA"/>
+				<xs:enumeration value="KISLOVODSK"/>
+				<xs:enumeration value="KODAIKANAL"/>
+				<xs:enumeration value="KOLIMBARI"/>
+				<xs:enumeration value="KOTELNYJ"/>
+				<xs:enumeration value="KOTOTABANG"/>
+				<xs:enumeration value="KOUROU"/>
+				<xs:enumeration value="KRASNOYARSK"/>
+				<xs:enumeration value="KUIBYSHEV"/>
+				<xs:enumeration value="KUNMING"/>
+				<xs:enumeration value="LAGO.RODC"/>
+				<xs:enumeration value="LAGOS"/>
+				<xs:enumeration value="LAHORE"/>
+				<xs:enumeration value="LA.JOLLA.CA"/>
+				<xs:enumeration value="LAMONT.OK"/>
+				<xs:enumeration value="LAMPEDUSA"/>
+				<xs:enumeration value="LAMTO"/>
+				<xs:enumeration value="LANGENBRUGGE"/>
+				<xs:enumeration value="LA.PAZ"/>
+				<xs:enumeration value="LA.QUIACA"/>
+				<xs:enumeration value="L.AQUILA"/>
+				<xs:enumeration value="LARAMIE.WY"/>
+				<xs:enumeration value="LA.REUNION"/>
+				<xs:enumeration value="LAS.TABLAS"/>
+				<xs:enumeration value="LAUDER"/>
+				<xs:enumeration value="LEGIONOWO"/>
+				<xs:enumeration value="LEIGH"/>
+				<xs:enumeration value="LERWICK"/>
+				<xs:enumeration value="LHASA"/>
+				<xs:enumeration value="LILLE"/>
+				<xs:enumeration value="LIN.AN"/>
+				<xs:enumeration value="LINDENBERG"/>
+				<xs:enumeration value="LISBON"/>
+				<xs:enumeration value="LONDON.ONTARIO"/>
+				<xs:enumeration value="LONDON"/>
+				<xs:enumeration value="LONGFENSHAN"/>
+				<xs:enumeration value="LONGYEARBYEN"/>
+				<xs:enumeration value="LOS.ANGELES.CA"/>
+				<xs:enumeration value="LUSAKA"/>
+				<xs:enumeration value="LVOV"/>
+				<xs:enumeration value="MACE.HEAD"/>
+				<xs:enumeration value="MACKAY"/>
+				<xs:enumeration value="MACQUARIE.ISLAND"/>
+				<xs:enumeration value="MADRAS"/>
+				<xs:enumeration value="MADRID"/>
+				<xs:enumeration value="MAGADAN"/>
+				<xs:enumeration value="MAHE"/>
+				<xs:enumeration value="MALINDI"/>
+				<xs:enumeration value="MANCHESTER"/>
+				<xs:enumeration value="MANILA"/>
+				<xs:enumeration value="MAPUTO"/>
+				<xs:enumeration value="MARAMBIO"/>
+				<xs:enumeration value="MARCAPOMACOCHA"/>
+				<xs:enumeration value="MARCUS.ISLAND"/>
+				<xs:enumeration value="MAR.DEL.PLATA"/>
+				<xs:enumeration value="MARKOVO"/>
+				<xs:enumeration value="MAUNA.KEA.HI"/>
+				<xs:enumeration value="MAUNA.LOA.HI"/>
+				<xs:enumeration value="MCMURDO"/>
+				<xs:enumeration value="MEININGEN"/>
+				<xs:enumeration value="MELBOURNE"/>
+				<xs:enumeration value="MENDOZA"/>
+				<xs:enumeration value="MERIDA"/>
+				<xs:enumeration value="MERSA.MATRUH"/>
+				<xs:enumeration value="MESSINA"/>
+				<xs:enumeration value="MEXICO.CITY"/>
+				<xs:enumeration value="MFUWE"/>
+				<xs:enumeration value="MIAMI.FL"/>
+				<xs:enumeration value="MIDLAND.TX"/>
+				<xs:enumeration value="MINNEAPOLIS.MN"/>
+				<xs:enumeration value="MINSK"/>
+				<xs:enumeration value="MIR"/>
+				<xs:enumeration value="MIRNY"/>
+				<xs:enumeration value="MOLODEZNAYA"/>
+				<xs:enumeration value="MONTE.CIMONE"/>
+				<xs:enumeration value="MONT.LOUIS"/>
+				<xs:enumeration value="MONTREAL"/>
+				<xs:enumeration value="MOSCOW"/>
+				<xs:enumeration value="MOUNT.ABU"/>
+				<xs:enumeration value="MOUNT.KRVAVEC"/>
+				<xs:enumeration value="MOUNT.WALIGUAN"/>
+				<xs:enumeration value="MURCIA"/>
+				<xs:enumeration value="MURMANSK"/>
+				<xs:enumeration value="NACOGDOCHES.TX"/>
+				<xs:enumeration value="NAGAYEVO"/>
+				<xs:enumeration value="NAGPUR"/>
+				<xs:enumeration value="NAHA"/>
+				<xs:enumeration value="NAIROBI"/>
+				<xs:enumeration value="NAMPULA"/>
+				<xs:enumeration value="NAPLES"/>
+				<xs:enumeration value="NARRAGANSETT.RI"/>
+				<xs:enumeration value="NASHVILLE.TN"/>
+				<xs:enumeration value="NATAL"/>
+				<xs:enumeration value="NAURU"/>
+				<xs:enumeration value="NEUGLOBSOW"/>
+				<xs:enumeration value="NEUMAYER"/>
+				<xs:enumeration value="NEW.DELHI"/>
+				<xs:enumeration value="NEW.YORK.NY"/>
+				<xs:enumeration value="NH"/>
+				<xs:enumeration value="NH.MID.LATITUDE"/>
+				<xs:enumeration value="NIKOLAEVSK.NA.AMURE"/>
+				<xs:enumeration value="NOME.AK"/>
+				<xs:enumeration value="NORRKOPING"/>
+				<xs:enumeration value="NORTH.SEA"/>
+				<xs:enumeration value="NOVOLAZAREVSKAYA"/>
+				<xs:enumeration value="NY.ALESUND"/>
+				<xs:enumeration value="OAKLAND.CA"/>
+				<xs:enumeration value="OBNINSK"/>
+				<xs:enumeration value="ODESSA"/>
+				<xs:enumeration value="OKAUKUEJO"/>
+				<xs:enumeration value="OKINAWA"/>
+				<xs:enumeration value="OLENEK"/>
+				<xs:enumeration value="OMSK"/>
+				<xs:enumeration value="ORBIT"/>
+				<xs:enumeration value="ORLAND"/>
+				<xs:enumeration value="OSAKA"/>
+				<xs:enumeration value="OSLO"/>
+				<xs:enumeration value="OXFORD"/>
+				<xs:enumeration value="PAGO.PAGO"/>
+				<xs:enumeration value="PALESTINE.TX"/>
+				<xs:enumeration value="PALMERSTON"/>
+				<xs:enumeration value="PALMER"/>
+				<xs:enumeration value="PAPEETE"/>
+				<xs:enumeration value="PARADOX.NY"/>
+				<xs:enumeration value="PARAMARIBO"/>
+				<xs:enumeration value="PARIS"/>
+				<xs:enumeration value="PAYERNE"/>
+				<xs:enumeration value="PECHORA"/>
+				<xs:enumeration value="PELLSTON.MI"/>
+				<xs:enumeration value="PENHAS.DOURADAS"/>
+				<xs:enumeration value="PERTH"/>
+				<xs:enumeration value="PERUGIA"/>
+				<xs:enumeration value="PETALING.JAYA"/>
+				<xs:enumeration value="PETROPAVLOSK"/>
+				<xs:enumeration value="PHILADELPHIA.PA"/>
+				<xs:enumeration value="PILAR"/>
+				<xs:enumeration value="PLATEAU.ROSA"/>
+				<xs:enumeration value="PLESETSK"/>
+				<xs:enumeration value="POHANG"/>
+				<xs:enumeration value="POINT.MUGU.CA"/>
+				<xs:enumeration value="POKER.FLAT.AK"/>
+				<xs:enumeration value="POLARSTERN"/>
+				<xs:enumeration value="PONTIANAK"/>
+				<xs:enumeration value="POONA"/>
+				<xs:enumeration value="POPRAD.GANOVCE"/>
+				<xs:enumeration value="PORTO.NACIONAL"/>
+				<xs:enumeration value="POTENZA"/>
+				<xs:enumeration value="POTSDAM"/>
+				<xs:enumeration value="PRAHA"/>
+				<xs:enumeration value="PREILA"/>
+				<xs:enumeration value="PUERTO.MADRYN"/>
+				<xs:enumeration value="PUNTA.ARENAS"/>
+				<xs:enumeration value="PUSAN"/>
+				<xs:enumeration value="QUETTA"/>
+				<xs:enumeration value="RECIFE"/>
+				<xs:enumeration value="REGINA"/>
+				<xs:enumeration value="RESEARCH.TRIANGLE.NC"/>
+				<xs:enumeration value="RESOLUTE"/>
+				<xs:enumeration value="REYKJAVIK"/>
+				<xs:enumeration value="RICHLAND.WA"/>
+				<xs:enumeration value="RIGA"/>
+				<xs:enumeration value="RIO.DE.JANEIRO"/>
+				<xs:enumeration value="RIO.GALLEGOS"/>
+				<xs:enumeration value="RIVERSIDE.CA"/>
+				<xs:enumeration value="ROME"/>
+				<xs:enumeration value="ROSARIO"/>
+				<xs:enumeration value="ROTHERA"/>
+				<xs:enumeration value="ROZHEN"/>
+				<xs:enumeration value="RYORI"/>
+				<xs:enumeration value="SABLE.ISLAND"/>
+				<xs:enumeration value="SALEKHARD"/>
+				<xs:enumeration value="SALISBURY"/>
+				<xs:enumeration value="SALT.LAKE.CITY.UT"/>
+				<xs:enumeration value="SALTO"/>
+				<xs:enumeration value="SAMALGA.ISLAND.AK"/>
+				<xs:enumeration value="SAN.CRISTOBAL"/>
+				<xs:enumeration value="SAN.DIEGO.CA"/>
+				<xs:enumeration value="SAN.FRANCISCO.CA"/>
+				<xs:enumeration value="SAN.JULIAN"/>
+				<xs:enumeration value="SAN.MARTIN"/>
+				<xs:enumeration value="SAN.PIETRO.CAPOFUME"/>
+				<xs:enumeration value="SANTA.MARIA.AZORES"/>
+				<xs:enumeration value="SANTA.MARIA"/>
+				<xs:enumeration value="SANTIAGO"/>
+				<xs:enumeration value="SAO.PAULO"/>
+				<xs:enumeration value="SAPPORO"/>
+				<xs:enumeration value="SASKATOON"/>
+				<xs:enumeration value="SATURNA.ISLAND"/>
+				<xs:enumeration value="SCHAUINSLAND"/>
+				<xs:enumeration value="SCHMUECKE"/>
+				<xs:enumeration value="SCORESBYSUND"/>
+				<xs:enumeration value="SCOTT.BASE"/>
+				<xs:enumeration value="SEATTLE.WA"/>
+				<xs:enumeration value="SEGUIN.TX"/>
+				<xs:enumeration value="SEMIPALATINSK"/>
+				<xs:enumeration value="SEOUL"/>
+				<xs:enumeration value="SEPANG"/>
+				<xs:enumeration value="SEQUIM.WA"/>
+				<xs:enumeration value="SEREKUNDA"/>
+				<xs:enumeration value="SESTOLA"/>
+				<xs:enumeration value="SH"/>
+				<xs:enumeration value="SHANGDIANZI"/>
+				<xs:enumeration value="SHANGHAI"/>
+				<xs:enumeration value="SHENANDOAH.VA"/>
+				<xs:enumeration value="SHENYANG"/>
+				<xs:enumeration value="SHIANGHER"/>
+				<xs:enumeration value="SINGAPORE"/>
+				<xs:enumeration value="SKOVORODINO"/>
+				<xs:enumeration value="SOCORRO.NM"/>
+				<xs:enumeration value="SODANKYLA"/>
+				<xs:enumeration value="SOFIA"/>
+				<xs:enumeration value="SONDRESTROM"/>
+				<xs:enumeration value="SONGKHLA"/>
+				<xs:enumeration value="SONNBLICK"/>
+				<xs:enumeration value="SOUTH.LAKE.TAHOE.CA"/>
+				<xs:enumeration value="SPOKANE.WA"/>
+				<xs:enumeration value="SPOT4"/>
+				<xs:enumeration value="SPRINGBOK"/>
+				<xs:enumeration value="SRINAGAR"/>
+				<xs:enumeration value="STEAMBOAT.SPRINGS.CO"/>
+				<xs:enumeration value="ST.HELENA"/>
+				<xs:enumeration value="STOCKHOLM"/>
+				<xs:enumeration value="STONY.PLAIN"/>
+				<xs:enumeration value="ST.PAUL.ISLAND.AK"/>
+				<xs:enumeration value="ST.PETERSBURG"/>
+				<xs:enumeration value="STRATH.VAICH"/>
+				<xs:enumeration value="SUBSET"/>
+				<xs:enumeration value="SUGARLAND.TX"/>
+				<xs:enumeration value="SUMMIT"/>
+				<xs:enumeration value="SUVA"/>
+				<xs:enumeration value="SVERDLOVSK"/>
+				<xs:enumeration value="SVRATOUCH"/>
+				<xs:enumeration value="SYDNEY"/>
+				<xs:enumeration value="SYOWA"/>
+				<xs:enumeration value="TABLE.MOUNTAIN.CA"/>
+				<xs:enumeration value="TAHKUSE"/>
+				<xs:enumeration value="TAIPEI"/>
+				<xs:enumeration value="TALLAHASSEE.FL"/>
+				<xs:enumeration value="TAMANRASSET"/>
+				<xs:enumeration value="TANAH.RATA"/>
+				<xs:enumeration value="TARAWA"/>
+				<xs:enumeration value="TASHKENT"/>
+				<xs:enumeration value="TATENO"/>
+				<xs:enumeration value="TBILISI"/>
+				<xs:enumeration value="TECUMSEH.MI"/>
+				<xs:enumeration value="TEHRAN"/>
+				<xs:enumeration value="TERCEIRA.ISLAND"/>
+				<xs:enumeration value="TERELJ"/>
+				<xs:enumeration value="TERESINA"/>
+				<xs:enumeration value="TERRA.NOVA.BAY"/>
+				<xs:enumeration value="THESSALONIKI"/>
+				<xs:enumeration value="THULE"/>
+				<xs:enumeration value="TIANJIN"/>
+				<xs:enumeration value="TIKSI"/>
+				<xs:enumeration value="TOKYO"/>
+				<xs:enumeration value="TOMSK"/>
+				<xs:enumeration value="TOOWOOMBA"/>
+				<xs:enumeration value="TORONTO"/>
+				<xs:enumeration value="TRAPANI"/>
+				<xs:enumeration value="TRELEW"/>
+				<xs:enumeration value="TRINIDAD.HEAD.CA"/>
+				<xs:enumeration value="TRINIDAD"/>
+				<xs:enumeration value="TRIVANDRUM"/>
+				<xs:enumeration value="TROMSO"/>
+				<xs:enumeration value="TSUKUBA"/>
+				<xs:enumeration value="TUCSON.AZ"/>
+				<xs:enumeration value="TUCUMAN"/>
+				<xs:enumeration value="TURA"/>
+				<xs:enumeration value="UCCLE"/>
+				<xs:enumeration value="UNAM"/>
+				<xs:enumeration value="UPPSALA"/>
+				<xs:enumeration value="URBANA.UL"/>
+				<xs:enumeration value="USHUAIA"/>
+				<xs:enumeration value="VALDIVIA"/>
+				<xs:enumeration value="VALENCIA"/>
+				<xs:enumeration value="VALENSOLE"/>
+				<xs:enumeration value="VALENTIA"/>
+				<xs:enumeration value="VALPARAISO.IN"/>
+				<xs:enumeration value="VANDENBERG.CA"/>
+				<xs:enumeration value="VANSCOY"/>
+				<xs:enumeration value="VARANASI"/>
+				<xs:enumeration value="VERNADSKY.FARADAY"/>
+				<xs:enumeration value="VIENNA"/>
+				<xs:enumeration value="VIGNA.DI.VALLE"/>
+				<xs:enumeration value="VINDELIN"/>
+				<xs:enumeration value="VIRGIN.ISLANDS"/>
+				<xs:enumeration value="VITIM"/>
+				<xs:enumeration value="VLADIVOSTOK"/>
+				<xs:enumeration value="VOLGOGRAD"/>
+				<xs:enumeration value="VORONEZH"/>
+				<xs:enumeration value="VORONEZ"/>
+				<xs:enumeration value="VOSTOK"/>
+				<xs:enumeration value="VOYAGEURS.MN"/>
+				<xs:enumeration value="WALLOPS.ISLAND.VA"/>
+				<xs:enumeration value="WALSINGHAM"/>
+				<xs:enumeration value="WARSAW"/>
+				<xs:enumeration value="WASHINGTON.D.C"/>
+				<xs:enumeration value="WATUKOSEK"/>
+				<xs:enumeration value="WELLINGTON"/>
+				<xs:enumeration value="WHITE.SANDS.NM"/>
+				<xs:enumeration value="WINNIPEG"/>
+				<xs:enumeration value="WMO12527"/>
+				<xs:enumeration value="WMO13518"/>
+				<xs:enumeration value="WMO13585"/>
+				<xs:enumeration value="WMO13588"/>
+				<xs:enumeration value="WMO13908"/>
+				<xs:enumeration value="WMO13921"/>
+				<xs:enumeration value="WMO13939"/>
+				<xs:enumeration value="WMO14536"/>
+				<xs:enumeration value="WMO14540"/>
+				<xs:enumeration value="WMO14901"/>
+				<xs:enumeration value="WMO14907"/>
+				<xs:enumeration value="WMO14913"/>
+				<xs:enumeration value="WMO14917"/>
+				<xs:enumeration value="WMO15520"/>
+				<xs:enumeration value="WMO15603"/>
+				<xs:enumeration value="WMO15617"/>
+				<xs:enumeration value="WMO15903"/>
+				<xs:enumeration value="WMO15911"/>
+				<xs:enumeration value="WMO16518"/>
+				<xs:enumeration value="WMO16536"/>
+				<xs:enumeration value="WMO16537"/>
+				<xs:enumeration value="WMO16539"/>
+				<xs:enumeration value="WMO16946"/>
+				<xs:enumeration value="WMO16947"/>
+				<xs:enumeration value="WMO17559"/>
+				<xs:enumeration value="WMO17561"/>
+				<xs:enumeration value="WMO17564"/>
+				<xs:enumeration value="WMO17565"/>
+				<xs:enumeration value="WMO17641"/>
+				<xs:enumeration value="WMO21532"/>
+				<xs:enumeration value="WMO21535"/>
+				<xs:enumeration value="WMO21634"/>
+				<xs:enumeration value="WMO23509"/>
+				<xs:enumeration value="WMO23593"/>
+				<xs:enumeration value="WMO23640"/>
+				<xs:enumeration value="WMO23642"/>
+				<xs:enumeration value="WMO23648"/>
+				<xs:enumeration value="WMO23932"/>
+				<xs:enumeration value="WMO23947"/>
+				<xs:enumeration value="WMO31903"/>
+				<xs:enumeration value="WMO31915"/>
+				<xs:enumeration value="WMO31978"/>
+				<xs:enumeration value="WMO32522"/>
+				<xs:enumeration value="WMO32533"/>
+				<xs:enumeration value="WMO32558"/>
+				<xs:enumeration value="WMO32626"/>
+				<xs:enumeration value="WMO32829"/>
+				<xs:enumeration value="WMO32872"/>
+				<xs:enumeration value="WMO32925"/>
+				<xs:enumeration value="WMO33517"/>
+				<xs:enumeration value="WMO33518"/>
+				<xs:enumeration value="WMO33543"/>
+				<xs:enumeration value="WMO33576"/>
+				<xs:enumeration value="WMO33587"/>
+				<xs:enumeration value="WMO34515"/>
+				<xs:enumeration value="WMO34911"/>
+				<xs:enumeration value="WMO34920"/>
+				<xs:enumeration value="WMO41002"/>
+				<xs:enumeration value="WMO41008"/>
+				<xs:enumeration value="WMO41012"/>
+				<xs:enumeration value="WMO41096"/>
+				<xs:enumeration value="WMO41100"/>
+				<xs:enumeration value="WMO41503"/>
+				<xs:enumeration value="WMO41531"/>
+				<xs:enumeration value="WMO41532"/>
+				<xs:enumeration value="WMO41648"/>
+				<xs:enumeration value="WMO41649"/>
+				<xs:enumeration value="WMO41652"/>
+				<xs:enumeration value="WMO42019"/>
+				<xs:enumeration value="WMO42036"/>
+				<xs:enumeration value="WMO42041"/>
+				<xs:enumeration value="WMO43008"/>
+				<xs:enumeration value="WMO43011"/>
+				<xs:enumeration value="WMO43907"/>
+				<xs:enumeration value="WMO44137"/>
+				<xs:enumeration value="WMO44258"/>
+				<xs:enumeration value="WMO44516"/>
+				<xs:enumeration value="WMO44625"/>
+				<xs:enumeration value="WMO44723"/>
+				<xs:enumeration value="WMO46002"/>
+				<xs:enumeration value="WMO46011"/>
+				<xs:enumeration value="WMO46027"/>
+				<xs:enumeration value="WMO46036"/>
+				<xs:enumeration value="WMO46042"/>
+				<xs:enumeration value="WMO46047"/>
+				<xs:enumeration value="WMO46083"/>
+				<xs:enumeration value="WMO46184"/>
+				<xs:enumeration value="WMO46185"/>
+				<xs:enumeration value="WMO46502"/>
+				<xs:enumeration value="WMO46577"/>
+				<xs:enumeration value="WMO46634"/>
+				<xs:enumeration value="WMO46637"/>
+				<xs:enumeration value="WMO46638"/>
+				<xs:enumeration value="WMO46698"/>
+				<xs:enumeration value="WMO46710"/>
+				<xs:enumeration value="WMO46780"/>
+				<xs:enumeration value="WMO51001"/>
+				<xs:enumeration value="WMO51004"/>
+				<xs:enumeration value="WMO51527"/>
+				<xs:enumeration value="WMO51533"/>
+				<xs:enumeration value="WMO51540"/>
+				<xs:enumeration value="WMO51654"/>
+				<xs:enumeration value="WMO51746"/>
+				<xs:enumeration value="WMO51806"/>
+				<xs:enumeration value="WMO51842"/>
+				<xs:enumeration value="WMO51846"/>
+				<xs:enumeration value="WMO51862"/>
+				<xs:enumeration value="WMO51864"/>
+				<xs:enumeration value="WMO51875"/>
+				<xs:enumeration value="WMO51904"/>
+				<xs:enumeration value="WMO52073"/>
+				<xs:enumeration value="WMO52080"/>
+				<xs:enumeration value="WMO52517"/>
+				<xs:enumeration value="WMO52526"/>
+				<xs:enumeration value="WMO52537"/>
+				<xs:enumeration value="WMO52615"/>
+				<xs:enumeration value="WMO52648"/>
+				<xs:enumeration value="WMO52649"/>
+				<xs:enumeration value="WMO52650"/>
+				<xs:enumeration value="WMO52657"/>
+				<xs:enumeration value="WMO52664"/>
+				<xs:enumeration value="WMO53522"/>
+				<xs:enumeration value="WMO53549"/>
+				<xs:enumeration value="WMO53561"/>
+				<xs:enumeration value="WMO54824"/>
+				<xs:enumeration value="WMO54906"/>
+				<xs:enumeration value="WMO54919"/>
+				<xs:enumeration value="WMO54920"/>
+				<xs:enumeration value="WMO55573"/>
+				<xs:enumeration value="WMO55578"/>
+				<xs:enumeration value="WMO55579"/>
+				<xs:enumeration value="WMO55581"/>
+				<xs:enumeration value="WMO55582"/>
+				<xs:enumeration value="WMO55583"/>
+				<xs:enumeration value="WMO55584"/>
+				<xs:enumeration value="WMO55616"/>
+				<xs:enumeration value="WMO55907"/>
+				<xs:enumeration value="WMO55909"/>
+				<xs:enumeration value="WMO56511"/>
+				<xs:enumeration value="WMO56515"/>
+				<xs:enumeration value="WMO56519"/>
+				<xs:enumeration value="WMO56521"/>
+				<xs:enumeration value="WMO56530"/>
+				<xs:enumeration value="WMO56534"/>
+				<xs:enumeration value="WMO61001"/>
+				<xs:enumeration value="WMO61663"/>
+				<xs:enumeration value="WMO61669"/>
+				<xs:enumeration value="WMO62052"/>
+				<xs:enumeration value="WMO62091"/>
+				<xs:enumeration value="WMO62106"/>
+				<xs:enumeration value="WMO62109"/>
+				<xs:enumeration value="WMO62163"/>
+				<xs:enumeration value="WMO62505"/>
+				<xs:enumeration value="WMO62512"/>
+				<xs:enumeration value="WMO62696"/>
+				<xs:enumeration value="WMO74534"/>
+				<xs:enumeration value="WOLLONGONG"/>
+				<xs:enumeration value="WOOMERA"/>
+				<xs:enumeration value="WUHAN"/>
+				<xs:enumeration value="XINGU"/>
+				<xs:enumeration value="YAKUTSK"/>
+				<xs:enumeration value="YARMOUTH"/>
+				<xs:enumeration value="YELLOWSTONE.WY"/>
+				<xs:enumeration value="YORKTON"/>
+				<xs:enumeration value="YUZHNO.SAHALINSK"/>
+				<xs:enumeration value="ZHIGANSK"/>
+				<xs:enumeration value="ZHONGSHAN"/>
+				<xs:enumeration value="ZUGSPITZE"/>
+				<xs:enumeration value="ZURICH"/>
+				<xs:enumeration value="ZVENIGOROD"/>
+				<xs:enumeration value="WMO5902299"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<!-- CorrelativeProductEquipment -->
+	<xs:element name="CorrelativeProductEquipment" type="eocdcio:CorrelativeProductEquipmentType" substitutionGroup="gml:AbstractFeature"/>
+	<xs:complexType name="CorrelativeProductEquipmentType" mixed="false">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element ref="eocdcio:platform" minOccurs="0"/>
+					<xs:element ref="eocdcio:instrumentModelType" minOccurs="0"/>
+					<xs:element ref="eocdcio:instrumentModelOrganisation" minOccurs="0"/>
+					<xs:element ref="eocdcio:instrumentModelIdentifier" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CorrelativeProductEquipmentPropertyType">
+		<xs:sequence>
+			<xs:element ref="eocdcio:CorrelativeProductEquipment"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="instrumentModelType" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>the type of instrument or numeric model that created the data (GEOMS guidelines)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="instrumentModelOrganisation" type="eocdcio:affiliationCodeType">
+		<xs:annotation>
+			<xs:documentation>the organisation that owns the instrument/model   (GEOMS guidelines)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="instrumentModelIdentifier" type="xs:integer">
+		<xs:annotation>
+			<xs:documentation>a unique numeric identifier of the instrument within the organisation (GEOMS guidelines))</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- CorrelativeProductResult-->
+	<xs:element name="CorrelativeProductResult" type="eocdcio:CorrelativeProductResultType" substitutionGroup="gml:AbstractFeature">
+		<xs:annotation>
+			<xs:documentation>Defines the correlative product "result"</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CorrelativeProductResultType" mixed="false">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="product" type="eocdcio:ProductInformationArrayType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CorrelativeProductResultPropertyType">
+		<xs:sequence>
+			<xs:element ref="eocdcio:CorrelativeProductResult"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProductInformationArrayType">
+		<xs:sequence>
+			<xs:element ref="eocdcio:ProductInformation" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ProductInformation" type="eocdcio:ProductInformationType"/>
+	<xs:complexType name="ProductInformationType">
+		<xs:sequence>
+			<xs:element name="onlineResourceURL" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>URL to a location on an FTP or HTTP site or (OGC) Web Service from which one can obtain the data product itself</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fileAccessConstraints" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Constraints in using the files (may correspond to the FILE_ACCESS element of the GEOMS guidelines)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dataFileHash" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Base 128 hash calculated on the data file to allow verification of uniqueness and integrity</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fileFormat" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>file format that the product is delivered in</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="HDF4"/>
+						<xs:enumeration value="HDF5"/>
+						<xs:enumeration value="netCDF3"/>
+						<xs:enumeration value="netCDF4"/>
+						<xs:enumeration value="AMES"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cloudCoverPercentage" type="gml:MeasureType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Areal percentage of product that is covered with clouds.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="snowCoverPercentage" type="gml:MeasureType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Areal percentage of product that is covered with snow.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

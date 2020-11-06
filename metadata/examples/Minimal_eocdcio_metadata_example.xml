@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eocdcio:CorrelativeProduct version="0.8.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:eocdcio="http://earth.esa.int/eocdcio" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://earth.esa.int/eocdcio ./xsd/eocdcio/eocdcio.xsd" gml:id="eocdcio_AVDC_17598785">
+	<gml:metaDataProperty>
+		<eocdcio:CorrelativeProductMetaData>
+			<eocdcio:fileIdentifier>urn:x-eocdcio:avdc:17598785</eocdcio:fileIdentifier>
+			<eocdcio:metaDataUpdateDate>2008-09-30T19:38:25.35Z</eocdcio:metaDataUpdateDate>
+			<eocdcio:fileGenerationDate>2008-12-08T11:53:58Z</eocdcio:fileGenerationDate>
+			<eocdcio:dataVariable>O3.CONCENTRATION</eocdcio:dataVariable>
+		</eocdcio:CorrelativeProductMetaData>
+	</gml:metaDataProperty>
+	<gml:validTime>
+		<gml:TimePeriod gml:id="eocdcio_AVDC_17598785_T">
+			<gml:beginPosition>2008-03-30T23:56:00Z</gml:beginPosition>
+			<gml:endPosition>2008-03-31T23:59:00Z</gml:endPosition>
+		</gml:TimePeriod>
+	</gml:validTime>
+	<gml:using/>
+	<gml:target>
+		<eocdcio:CorrelativeProductSpatialExtent gml:id="eocdcio_AVDC_17598785_SE">
+			<eocdcio:fixedLocationName>MERIDA</eocdcio:fixedLocationName>
+			<eocdcio:pointLocation>
+				<gml:Point srsName="CRS:84" gml:id="eocdcio_AVDC_17598785_P1">
+					<gml:pos>2.374167 43.190833</gml:pos>
+				</gml:Point>
+			</eocdcio:pointLocation>
+			<gml:multiExtentOf>
+				<gml:MultiSurface srsName="CRS:84" gml:id="eocdcio_AVDC_17598785_MS">
+					<gml:surfaceMembers>
+						<gml:Polygon gml:id="eocdcio_AVDC_17598785_P">
+							<gml:exterior>
+								<gml:LinearRing>
+									<gml:posList>2.1025 43.516667 2.861667 43.381667 2.65 42.862778 1.896944 42.996389 2.1025 43.516667</gml:posList>
+								</gml:LinearRing>
+							</gml:exterior>
+						</gml:Polygon>
+					</gml:surfaceMembers>
+				</gml:MultiSurface>
+			</gml:multiExtentOf>
+		</eocdcio:CorrelativeProductSpatialExtent>
+	</gml:target>
+	<gml:resultOf/>
+</eocdcio:CorrelativeProduct>
